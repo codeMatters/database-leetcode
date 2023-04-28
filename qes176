@@ -1,3 +1,9 @@
 SELECT DISTINCT MAX(salary) AS SecondHighestSalary
   FROM Employee a
  WHERE Salary< (SELECT MAX(salary) FROM Employee b WHERE b.salary > a.salary)
+
+
+-----another way to solve this problem----
+select max(salary) as SecondHighestSalary from 
+(select dense_rank() over(order by salary desc) as ranks ,salary from employee)e
+where ranks=2;
